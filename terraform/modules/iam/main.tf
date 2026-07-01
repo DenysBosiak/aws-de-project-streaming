@@ -92,6 +92,16 @@ resource "aws_iam_role_policy" "firehose_policy" {
         ]
         Effect   = "Allow"
         Resource = ["${var.raw_bucket_arn}", "${var.raw_bucket_arn}/*"]
+      },
+      {
+        Action = [
+          "kinesis:DescribeStream",
+          "kinesis:GetShardIterator",
+          "kinesis:GetRecords",
+          "kinesis:ListShards"
+        ]
+        Effect   = "Allow"
+        Resource = "*"
       }
     ]
   })
