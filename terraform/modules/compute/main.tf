@@ -32,6 +32,17 @@ resource "aws_sqs_queue" "dlq" {
     message_retention_seconds = 604800
 }
 
+resource "aws_lambda_event_source_mapping" "kinesis" {
+    event_source_arn               = aws_kinesis_stream.events.arn
+    function_name                  = aws_lambda_function.processor.arn
+    starting_position              = "LATEST"
+    batch_size                     = 100
+    bisect_batch_on_function_error = true
+    destination_config {
+        on_failure { destination_arn = aws_sqs_queue.dlq.arn }
+    }
+}
+
 resource "aws_kinesis_firehose_delivery_stream" "raw" {
     name = "p1-events-firehose-${var.env}"
     destination = "extended_s3"
