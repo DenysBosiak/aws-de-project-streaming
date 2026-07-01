@@ -7,7 +7,7 @@ resource "aws_kinesis_stream" "events" {
 data "archive_file" "lambda_zip" {
     type = "zip"
     source_dir = "${path.root}/../lambda"
-    output_path = "/tmp/lambda_p1.zip"
+    output_path = "${path.root}/../lambda/lambda_p1.zip"
 }
 
 resource "aws_lambda_function" "processor" {
@@ -32,7 +32,7 @@ resource "aws_sqs_queue" "dlq" {
     message_retention_seconds = 604800
 }
 
-resource "aws_linesis_firehose_delivery_stream" "raw" {
+resource "aws_kinesis_firehose_delivery_stream" "raw" {
     name = "p1-events-firehose-${var.env}"
     destination = "extended_s3"
     kinesis_source_configuration {
@@ -42,7 +42,8 @@ resource "aws_linesis_firehose_delivery_stream" "raw" {
     extended_s3_configuration {
         role_arn = var.firehose_role_arn
         bucket_arn = "arn:aws:s3:::${var.raw_bucket_id}"
-        prefix = "events/year=!{timestamp:yyyy}/month=!{timestamp:MM}/day=!{timestamp:dd}"
+        prefix = "events/year=!{timestamp:yyyy}/month=!{timestamp:MM}/day=!{timestamp:dd}/"
+        error_output_prefix = "errors/year=!{timestamp:yyyy}/month=!{timestamp:MM}/day=!{timestamp:dd}/!{firehose:error-output-type}/"
         buffering_size = 128
         buffering_interval = 300
         compression_format = "GZIP"
