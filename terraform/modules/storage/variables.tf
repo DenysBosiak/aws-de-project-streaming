@@ -1,4 +1,1 @@
-variable "env" {
-    default = "dev"
-    description = "Deployment environment (dev / prod)"
-}
+variable "env" { default = "dev" }
