@@ -1,0 +1,6 @@
+env = "dev"
+region = "eu-north-1"
+rs_admin_user = "admin"
+rs_admin_password = "securepassword"
+private_subnet_ids = ["subnet-01*************01", "subnet-01*************02", "subnet-01*************03"]
+vpc_id = "vpc-0a*************27"
