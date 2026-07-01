@@ -18,7 +18,9 @@ down-compute:
 	$(TF) destroy -target=module.analytics -target=module.compute -var-file="envs/$(ENV).tfvars" -auto-approve
 
 destroy:
-	@read -p "DELETE ALL DATA? Type YES: " c && [ "$$c" = "YES" ]
+	@powershell -Command \
+	"$$c = Read-Host 'DELETE ALL DATA? Type YES: '; \
+	if ($$c -ne 'YES') { exit 1 }"
 	$(TF) destroy -var-file="envs/$(ENV).tfvars" -auto-approve
 
 seed:
