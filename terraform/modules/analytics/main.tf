@@ -9,6 +9,6 @@ resource "aws_redshiftserverless_workgroup" "main" {
     namespace_name = aws_redshiftserverless_namespace.main.namespace_name
     workgroup_name = "analytics-wg-${var.env}"
     base_capacity = var.env == "prod" ? 32 : 8
-    publicly_accessible = false
+    publicly_accessible = true
     subnet_ids = var.private_subnet_ids
 }
