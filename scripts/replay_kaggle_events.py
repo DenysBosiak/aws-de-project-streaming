@@ -47,7 +47,7 @@ def main():
                 break
             payload = map_row(row)
             batch.append({
-                "Data": base64.b64encode(json.dumps(payload).encode()).decode(),
+                "Data": json.dumps(payload).encode(),
                 "PartitionKey": payload["user_id"]
             })
 
