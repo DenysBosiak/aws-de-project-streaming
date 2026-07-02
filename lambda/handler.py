@@ -19,16 +19,14 @@ def wait_for_statement(statement_id, timeout=30):
 
     start_time = time.time()
     while time.time() - start_time < timeout:
-        try:
-            response = rs.describe_statement(Id=statement_id)
-            status = response["Status"]
-            if status == "FINISHED":
-                return True
-            elif status in ["FAILED", "ABORTED"]:
-                logger.error(f"Statement {statement_id} failed with status: {status}")
-                return False
-        except ClientError as e:
-            logger.error(f"Error describing statement {statement_id}: {e}")
+        response = rs.describe_statement(Id=statement_id)
+        status = response["Status"]
+        if status == "FINISHED":
+            return True
+        elif status in ["FAILED", "ABORTED"]:
+            logger.error(f"Statement {statement_id} failed with status: {status}")
+            logger.error(f"Error occurred while executing statement: {response.get('Error', 'No error details available')}")
+            logger.error(f"Query string was: {response.get('QueryString', 'N/A')}")            
             return False
         time.sleep(1)
     logger.error(f"Redshift statement timed out after {timeout}s")
@@ -46,7 +44,7 @@ def lambda_handler(event, context):
                 f"'{data['event_id'].replace(chr(39), chr(39) * 2)}',"
                 f"'{data['user_id'].replace(chr(39), chr(39) * 2)}',"
                 f"'{data.get('event_type', 'view')}',"
-                f"GETDATE(), {float(data.get('value', 0))}"
+                f"{float(data.get('value', 0))}"
                 ")"
             )
         except Exception as e:
@@ -61,7 +59,7 @@ def lambda_handler(event, context):
             WorkgroupName=WORKGROUP,
             Database=DB,
             Sql=(
-                "INSERT INTO events.raw(event_id, user_id, event_type, value)"
+                "INSERT INTO events.\"raw\"(event_id, user_id, event_type, value)"
                 f"VALUES {','.join(rows)}"
             )   
         )
