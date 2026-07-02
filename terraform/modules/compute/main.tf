@@ -11,7 +11,7 @@ data "archive_file" "lambda_zip" {
 }
 
 resource "aws_lambda_function" "processor" {
-    function_name = "p1-linesis-processor-${var.env}"
+    function_name = "p1-kinesis-processor-${var.env}"
     role = var.lambda_role_arn
     handler = "handler.lambda_handler"
     runtime = "python3.11"
