@@ -26,3 +26,7 @@ SELECT DATE_TRUNC('hour', ts)  AS hour_bucket,
        SUM(CASE WHEN event_type='purchase' THEN value ELSE 0 END) AS revenue
 FROM events."raw" 
 GROUP BY 1;
+
+GRANT USAGE ON SCHEMA events TO "IAMR:p1-lambda-exec-dev";
+
+GRANT INSERT, SELECT ON TABLE events."raw" TO "IAMR:p1-lambda-exec-dev";
