@@ -42,6 +42,13 @@ resource "aws_iam_role_policy" "lambda_policy" {
       },
       {
         Action = [
+          "redshift-serverless:GetCredentials",
+        ]
+        Effect   = "Allow"
+        Resource = "*"
+      },      
+      {
+        Action = [
           "logs:CreateLogGroup",
           "logs:CreateLogStream",
           "logs:PutLogEvents"
