@@ -31,7 +31,7 @@ def wait_for_statement(statement_id, timeout=30):
             logger.error(f"Error describing statement {statement_id}: {e}")
             return False
         time.sleep(1)
-    logger.error("Redshift statement timed out after %ss", timeout)
+    logger.error(f"Redshift statement timed out after {timeout}s")
     return False
 
 
