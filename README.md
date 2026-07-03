@@ -7,6 +7,7 @@ AWS streaming pipeline processing 42M+ events using Kinesis → Lambda → Redsh
 **Dataset:** [eCommerce Behavior Data from Multi-Category Store](https://www.kaggle.com/datasets/mkechinov/ecommerce-behavior-data-from-multi-category-store)  
 **Source:** Kaggle (mkechinov)  
 **Size:** 42M+ rows
+
 Place the file at `data/raw/2019-Oct.csv` before running the pipeline.
 
 ### Schema
