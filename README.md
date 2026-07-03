@@ -25,6 +25,7 @@ Kinesis Data Streams → Lambda → Redshift Serverless
 ![Redshift Query Results](assets/redshift_query.png)
 
 ## Setup
+**For Windows users:** all `make` commands require `make` to be installed.
 1. Copy `terraform/envs/dev.tfvars.example` to `terraform/envs/dev.tfvars` and fill in your values
 2. Run `make init`
 3. Run `make up-storage`
