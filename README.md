@@ -2,6 +2,24 @@
 
 AWS streaming pipeline processing 42M+ events using Kinesis → Lambda → Redshift Serverless → QuickSight. End-to-end latency under 30 seconds.
 
+## Data
+
+**Dataset:** [eCommerce Behavior Data from Multi-Category Store](https://www.kaggle.com/datasets/mkechinov/ecommerce-behavior-data-from-multi-category-store)  
+**Source:** Kaggle (mkechinov)  
+**Size:** 42M+ rows
+Place the file at `data/raw/2019-Oct.csv` before running the pipeline.
+
+### Schema
+
+| Column | Type | Description |
+|--------|------|-------------|
+| `event_time` | timestamp | When the event occurred |
+| `event_type` | string | `view`, `cart`, `purchase`, `remove_from_cart` |
+| `product_id` | string | Unique product identifier |
+| `price` | float | Product price |
+| `user_id` | string | Unique user identifier |
+| `user_session` | string | Session identifier |
+
 ## Architecture
 Kinesis Data Streams → Lambda → Redshift Serverless
                               → Firehose → S3
