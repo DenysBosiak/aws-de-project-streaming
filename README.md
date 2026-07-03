@@ -16,6 +16,14 @@ Kinesis Data Streams → Lambda → Redshift Serverless
 - Terraform (IaC)
 - QuickSight
 
+## QuickSight Chart
+
+![QuickSight Dashboard](assets/quicksight_chart.png)
+
+## Redshift Query
+
+![Redshift Query Results](assets/redshift_query.png)
+
 ## Setup
 1. Copy `terraform/envs/dev.tfvars.example` to `terraform/envs/dev.tfvars` and fill in your values
 2. Run `make init`
